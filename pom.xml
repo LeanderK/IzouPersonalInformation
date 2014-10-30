@@ -11,10 +11,10 @@
     <name>Izou personal Information AddOn</name>
 
     <properties>
-        <plugin.id></plugin.id>
-        <plugin.class>path.to.the.zipfileManager</plugin.class>
-        <plugin.version></plugin.version>
-        <plugin.provider></plugin.provider>
+        <plugin.id>leanderk.izou.personalinformation</plugin.id>
+        <plugin.class>leanderk.izou.personalinformation.InformationAddOn</plugin.class>
+        <plugin.version>0.5</plugin.version>
+        <plugin.provider>Leander Kurscheidt</plugin.provider>
         <plugin.dependencies />
     </properties>
 
