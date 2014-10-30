@@ -32,10 +32,9 @@ public class InformationAddOn extends AddOn{
 
     @Override
     public ContentGenerator[] registerContentGenerator() {
-        //TODO: shit
-        InformationCG informationCG = new InformationCG(new Properties());
+        InformationCG informationCG = new InformationCG(getProperties());
         ContentGenerator[] contentGenerators = new ContentGenerator[1];
-        contentGenerators[3] = informationCG;
+        contentGenerators[0] = informationCG;
         return contentGenerators;
     }
 

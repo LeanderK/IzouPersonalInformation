@@ -9,7 +9,8 @@ import java.util.Properties;
 /**
  * Generates the Personal Information for every Event raised.
  *
- * there should a P
+ * there should a Properties file containing information like:
+ *
  *
  */
 public class InformationCG extends ContentGenerator<HashMap <String, String>>{
