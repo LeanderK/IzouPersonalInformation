@@ -73,14 +73,23 @@ public class InformationCG extends ContentGenerator<HashMap <String, String>>{
         e.printStackTrace();
     }
 
+    /**
+     * returns a HashMap containing the Data about the user.
+     *
+     * see generate for further Information.
+     *
+     * @return HashMap
+     */
     public HashMap<String, String> getData () {
-        if(cache == null) {
-            HashMap<String, String> map = new HashMap<>();
-            for (final String name: properties.stringPropertyNames())
-                map.put(name, properties.getProperty(name));
-            cache = map;
+        synchronized (this) {
+            if(cache == null) {
+                HashMap<String, String> map = new HashMap<>();
+                for (final String name: properties.stringPropertyNames())
+                    map.put(name, properties.getProperty(name));
+                cache = map;
+            }
+            return cache;
         }
-        return cache;
     }
 
 }
