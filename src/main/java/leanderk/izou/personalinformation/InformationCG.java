@@ -61,7 +61,9 @@ public class InformationCG extends ContentGenerator<HashMap <String, String>>{
      */
     @Override
     public ContentData<HashMap <String, String>> generate(String id) throws Exception {
-        HashMap<String, String> temp = getData();
+        HashMap<String, String> map = new HashMap<>();
+        for (final String name: properties.stringPropertyNames())
+            map.put(name, properties.getProperty(name));
         ContentData<HashMap<String, String>> data = new ContentData<>(ID);
         data.setData(temp);
         return data;
