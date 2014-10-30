@@ -16,7 +16,7 @@ import java.util.Properties;
 public class InformationCG extends ContentGenerator<HashMap <String, String>>{
 
     public final static String ID = InformationAddOn.class.getCanonicalName();
-    HashMap<String, String> cache = null;
+    private HashMap<String, String> cache = null;
 
 
     private Properties properties;
@@ -61,14 +61,9 @@ public class InformationCG extends ContentGenerator<HashMap <String, String>>{
      */
     @Override
     public ContentData<HashMap <String, String>> generate(String id) throws Exception {
-        if(cache == null) {
-            HashMap<String, String> map = new HashMap<>();
-            for (final String name: properties.stringPropertyNames())
-                map.put(name, properties.getProperty(name));
-            cache = map;
-        }
+        HashMap<String, String> temp = getData();
         ContentData<HashMap<String, String>> data = new ContentData<>(ID);
-        data.setData(cache);
+        data.setData(temp);
         return data;
     }
 
@@ -76,6 +71,16 @@ public class InformationCG extends ContentGenerator<HashMap <String, String>>{
     public void handleError(Exception e) {
         //TODO: implement error handling
         e.printStackTrace();
+    }
+
+    public HashMap<String, String> getData () {
+        if(cache == null) {
+            HashMap<String, String> map = new HashMap<>();
+            for (final String name: properties.stringPropertyNames())
+                map.put(name, properties.getProperty(name));
+            cache = map;
+        }
+        return cache;
     }
 
 }
