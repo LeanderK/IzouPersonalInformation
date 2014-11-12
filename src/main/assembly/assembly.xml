@@ -25,6 +25,7 @@
 			</excludes>
 		</dependencySet>
 	</dependencySets>
+
 	<fileSets>
 		<fileSet>
 			<directory>target/plugin-classes</directory>

@@ -1,5 +1,6 @@
 package leanderk.izou.personalinformation;
 
+import intellimate.izou.addon.PropertiesContainer;
 import intellimate.izou.contentgenerator.ContentData;
 import intellimate.izou.contentgenerator.ContentGenerator;
 
@@ -19,9 +20,9 @@ public class InformationCG extends ContentGenerator<HashMap <String, String>>{
     private HashMap<String, String> cache = null;
 
 
-    private Properties properties;
+    private PropertiesContainer properties;
 
-    public InformationCG(Properties properties) {
+    public InformationCG(PropertiesContainer properties) {
         super(ID);
         this.properties = properties;
     }
@@ -90,8 +91,8 @@ public class InformationCG extends ContentGenerator<HashMap <String, String>>{
         synchronized (this) {
             if(cache == null) {
                 HashMap<String, String> map = new HashMap<>();
-                for (final String name: properties.stringPropertyNames())
-                    map.put(name, properties.getProperty(name));
+                for (final String name: properties.getProperties().stringPropertyNames())
+                    map.put(name, properties.getProperties().getProperty(name));
                 cache = map;
             }
             return cache;
