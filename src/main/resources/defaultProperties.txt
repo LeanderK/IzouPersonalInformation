@@ -1,0 +1,21 @@
+#basic data:
+
+#first name of the user:
+firstname = insert first name here
+#last name of the user:
+lastname = insert last name here
+
+#email
+email = insert email here
+
+
+#location data
+
+#postal code
+postalcode = insert postalcode here
+#town
+town = insert town here
+#street
+street = insert street here
+#housenumer
+housenumber = insert housenumber here
