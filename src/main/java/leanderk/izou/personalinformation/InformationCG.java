@@ -96,6 +96,9 @@ public class InformationCG extends ContentGenerator{
      *   <tr>
      *      <td>housenumber</td><td>housenumber</td>
      *   </tr>
+     *   <tr>
+     *      <td>country</td><td>country</td>
+     *   </tr>
      * </table>
      * </code>
      * </p>
