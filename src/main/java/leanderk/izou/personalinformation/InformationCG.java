@@ -21,7 +21,7 @@ import java.util.Optional;
  *
  */
 public class InformationCG extends ContentGenerator{
-    public final static String ID = InformationAddOn.class.getCanonicalName();
+    public final static String ID = InformationCG.class.getCanonicalName();
     public final static String RESOURCE_ID = ID + ".ResourceInfo";
     private HashMap<String, String> cache = null;
     private IdentificationManager identificationManager = IdentificationManager.getInstance();
@@ -108,10 +108,10 @@ public class InformationCG extends ContentGenerator{
      */
     @Override
     public List<Resource> provideResource(List<Resource> list, Optional<Event> optional) {
-        Optional<Identification> identification = identificationManager.getIdentification(this);
-        Resource<HashMap <String, String>> resource = new Resource<>(RESOURCE_ID);
-        identification.ifPresent(resource::setProvider);
-        resource.setResource(getData());
-        return Arrays.asList(resource);
+        return identificationManager.getIdentification(this)
+                .map(id -> new Resource<HashMap <String, String>>(RESOURCE_ID, id))
+                .orElseThrow(() -> new RuntimeException("Unable to create Event"))
+                .setResource(getData())
+                .map(Arrays::asList);
     }
 }

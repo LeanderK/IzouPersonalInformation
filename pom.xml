@@ -22,12 +22,7 @@
         <dependency>
             <groupId>intellimate.izou</groupId>
             <artifactId>Izou</artifactId>
-            <version>0.9.9.4-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>2.6</version>
+            <version>0.9.9.9-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
