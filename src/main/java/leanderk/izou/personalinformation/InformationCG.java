@@ -73,7 +73,6 @@ public class InformationCG extends ContentGenerator{
      * ALWAYS check for existence of key/value pairs<br>
      * <br>
      * The HashMap should contain:<br>
-     * <code>
      * <table summary="">
      *   <tr>
      *      <td>firstname</td><td>the first name of the user</td>
@@ -100,8 +99,6 @@ public class InformationCG extends ContentGenerator{
      *      <td>country</td><td>country</td>
      *   </tr>
      * </table>
-     * </code>
-     * </p>
      * @param list the resources to generate
      * @param optional the event which may caused the generation
      * @return ContentData containing information about the user

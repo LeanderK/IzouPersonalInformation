@@ -56,15 +56,27 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <excludeDefaultDirectories>true</excludeDefaultDirectories>
                     <filesets>
                         <fileset>
-                            <directory>${project.basedir}/target</directory>
-                            <excludes>
-                                <exclude>**/*.zip</exclude>
-                            </excludes>
-                            <excludes>
-                                <exclude>/mvn-repo</exclude>
-                            </excludes>
+                            <directory>${project.build.outputDirectory}</directory>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                        <fileset>
+                            <directory>${project.build.testOutputDirectory}</directory>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                        <fileset>
+                            <directory>${project.reporting.outputDirectory}</directory>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
                             <followSymlinks>false</followSymlinks>
                         </fileset>
                     </filesets>
