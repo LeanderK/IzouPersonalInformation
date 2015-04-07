@@ -7,14 +7,15 @@
     <groupId>leanderk.izou.personalinformation</groupId>
     <artifactId>personalinformation</artifactId>
     <packaging>jar</packaging>
-    <version>1.2-SNAPSHOT</version>
+    <version>2.1</version>
     <name>Izou personal Information AddOn</name>
 
     <properties>
         <plugin.id>leanderk.izou.personalinformation</plugin.id>
         <plugin.class>leanderk.izou.personalinformation.ZipFileManager</plugin.class>
-        <plugin.version>1.2</plugin.version>
+        <plugin.version>2.1</plugin.version>
         <plugin.provider>Leander Kurscheidt</plugin.provider>
+        <plugin.sdkversion>0.5.23</plugin.sdkversion>
         <plugin.dependencies />
         <repo.name>IzouPersonalInformation</repo.name>
         <repo.owner>LeanderK</repo.owner>
@@ -24,22 +25,11 @@
 
     <dependencies>
         <dependency>
-            <groupId>intellimate.izou</groupId>
-            <artifactId>Izou</artifactId>
-            <version>0.9.9.9-SNAPSHOT</version>
+            <groupId>org.intellimate.izou</groupId>
+            <artifactId>sdk</artifactId>
+            <version>0.5.23</version>
         </dependency>
     </dependencies>
-
-    <repositories>
-        <repository>
-            <id>Izou</id>
-            <url>https://raw.github.com/intellimate/Izou/mvn-repo/</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-        </repository>
-    </repositories>
 
     <build>
         <plugins>
@@ -173,6 +163,7 @@
                             <Plugin-Version>${plugin.version}</Plugin-Version>
                             <Plugin-Provider>${plugin.provider}</Plugin-Provider>
                             <Plugin-Dependencies>${plugin.dependencies}</Plugin-Dependencies>
+                            <Plugin-SDKVersion>${plugin.sdkversion}</Plugin-SDKVersion>
                         </manifestEntries>
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
@@ -228,6 +219,26 @@
                             <goal>site</goal>
                         </goals>
                         <phase>deploy</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>de.jutzig</groupId>
+                <artifactId>github-release-plugin</artifactId>
+                <version>1.1.0</version>
+                <configuration>
+                    <repositoryId>${repo.owner}/${repo.name}</repositoryId>
+                    <releaseName>${plugin.version}</releaseName>
+                    <tag>${plugin.version}</tag>
+                    <artifact>${project.build.directory}/${artifactId}-${version}.zip</artifact>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>release</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>

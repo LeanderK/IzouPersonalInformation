@@ -1,14 +1,14 @@
 package leanderk.izou.personalinformation;
 
-import intellimate.izou.addon.PropertiesContainer;
-import intellimate.izou.contentgenerator.ContentGenerator;
-import intellimate.izou.events.Event;
-import intellimate.izou.resource.Resource;
-import intellimate.izou.system.Context;
-import intellimate.izou.system.Identification;
-import intellimate.izou.system.IdentificationManager;
+import org.intellimate.izou.events.EventModel;
+import org.intellimate.izou.resource.ResourceModel;
+import org.intellimate.izou.sdk.Context;
+import org.intellimate.izou.sdk.contentgenerator.ContentGenerator;
+import org.intellimate.izou.sdk.contentgenerator.EventListener;
+import org.intellimate.izou.sdk.events.Event;
+import org.intellimate.izou.sdk.properties.PropertiesAssistant;
+import org.intellimate.izou.sdk.resource.Resource;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -20,18 +20,17 @@ import java.util.Optional;
  *
  *
  */
-public class InformationCG extends ContentGenerator{
+public class InformationCG extends ContentGenerator {
     public final static String ID = InformationCG.class.getCanonicalName();
     public final static String RESOURCE_ID = ID + ".ResourceInfo";
     private HashMap<String, String> cache = null;
-    private IdentificationManager identificationManager = IdentificationManager.getInstance();
 
 
-    private PropertiesContainer properties;
+    private PropertiesAssistant properties;
 
-    public InformationCG(PropertiesContainer properties, Context context) {
+    public InformationCG(Context context) {
         super(ID, context);
-        this.properties = properties;
+        this.properties = context.getPropertiesAssistant();
     }
 
     /**
@@ -51,19 +50,6 @@ public class InformationCG extends ContentGenerator{
             }
             return cache;
         }
-    }
-
-    @Override
-    public List<Resource> announceResources() {
-        Optional<Identification> identification = identificationManager.getIdentification(this);
-        Resource<String> resource = new Resource<>(RESOURCE_ID);
-        identification.ifPresent(resource::setProvider);
-        return Arrays.asList(resource);
-    }
-
-    @Override
-    public List<String> announceEvents() {
-        return Arrays.asList(Event.RESPONSE);
     }
 
     /**
@@ -99,16 +85,40 @@ public class InformationCG extends ContentGenerator{
      *      <td>country</td><td>country</td>
      *   </tr>
      * </table>
-     * @param list the resources to generate
-     * @param optional the event which may caused the generation
-     * @return ContentData containing information about the user
+     *
+     * @param list     a list of resources without data
+     * @param optional if an event caused the action, it gets passed. It can also be null.
+     * @return a list of resources with data
      */
     @Override
-    public List<Resource> provideResource(List<Resource> list, Optional<Event> optional) {
-        return identificationManager.getIdentification(this)
-                .map(id -> new Resource<HashMap <String, String>>(RESOURCE_ID, id))
-                .orElseThrow(() -> new RuntimeException("Unable to create Event"))
-                .setResource(getData())
-                .map(Arrays::asList);
+    public List<? extends Resource> triggered(List<? extends ResourceModel> list, Optional<EventModel> optional) {
+        return optionalToList(createResource(RESOURCE_ID, getData()));
+    }
+
+    /**
+     * this method returns a List of EventListener, which indicate for which Events the ContentGenerator should be
+     * triggered.
+     *
+     * @return a List of EventListeners
+     */
+    @Override
+    public List<? extends EventListener> getTriggeredEvents() {
+        return optionalToList(EventListener.createEventListener(
+                Event.RESPONSE,
+                "Signals that an event expects an response from other addons",
+                "event_response",
+                this
+        ));
+    }
+
+    /**
+     * This method is called to register what resources the object provides.
+     * just pass a List of Resources without Data in it.
+     *
+     * @return a List containing the resources the object provides
+     */
+    @Override
+    public List<? extends Resource> getTriggeredResources() {
+        return optionalToList(createResource(RESOURCE_ID));
     }
 }
