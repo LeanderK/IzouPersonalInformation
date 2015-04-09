@@ -5,7 +5,7 @@ import org.intellimate.izou.resource.ResourceModel;
 import org.intellimate.izou.sdk.Context;
 import org.intellimate.izou.sdk.contentgenerator.ContentGenerator;
 import org.intellimate.izou.sdk.contentgenerator.EventListener;
-import org.intellimate.izou.sdk.events.Event;
+import org.intellimate.izou.sdk.events.CommonEvents;
 import org.intellimate.izou.sdk.properties.PropertiesAssistant;
 import org.intellimate.izou.sdk.resource.Resource;
 
@@ -103,12 +103,7 @@ public class InformationCG extends ContentGenerator {
      */
     @Override
     public List<? extends EventListener> getTriggeredEvents() {
-        return optionalToList(EventListener.createEventListener(
-                Event.RESPONSE,
-                "Signals that an event expects an response from other addons",
-                "event_response",
-                this
-        ));
+        return optionalToList(CommonEvents.get(this).getType().responseListener());
     }
 
     /**
