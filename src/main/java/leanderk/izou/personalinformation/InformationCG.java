@@ -103,7 +103,7 @@ public class InformationCG extends ContentGenerator {
      */
     @Override
     public List<? extends EventListener> getTriggeredEvents() {
-        return optionalToList(CommonEvents.get(this).getType().responseListener());
+        return optionalToList(CommonEvents.Type.responseListener(this));
     }
 
     /**
